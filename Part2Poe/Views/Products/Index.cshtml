@@ -1,0 +1,71 @@
+﻿@model IEnumerable<Part2Poe.Models.Product>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Product Page</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+    @*this code was taken and adabted from Harith Computers & Technology youtube channel*@
+    @*here is the link: https://www.youtube.com/watch?v=gCRukwJ22-I&ab_channel=HarithaComputers%26Technology*@
+    @*this snip of code was to create the search bar in the products page*@
+    @using (Html.BeginForm("Index", "Products", FormMethod.Get))
+    {
+        <input type="text" name="search" placeholder="Enter Product Date..." />
+        <input type="submit" name="submit" value="Search" />
+    }
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ProductName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ProductDescription)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ProductQuantity)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ProductPrice)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ProductDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Farmer.FarmerName)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.ProductName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ProductDescription)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ProductQuantity)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ProductPrice)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ProductDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Farmer.FarmerName)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ProductId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ProductId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ProductId })
+        </td>
+    </tr>
+}
+
+</table>

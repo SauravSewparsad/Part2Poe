@@ -1,0 +1,181 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Task2ProgModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Farmer">
+          <Key>
+            <PropertyRef Name="FarmerId" />
+          </Key>
+          <Property Name="FarmerId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FarmerName" Type="varchar" MaxLength="50" />
+          <Property Name="FarmerAddress" Type="varchar" MaxLength="255" />
+          <Property Name="FarmerPhone" Type="varchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="Product">
+          <Key>
+            <PropertyRef Name="ProductId" />
+          </Key>
+          <Property Name="ProductId" Type="int" Nullable="false" />
+          <Property Name="ProductName" Type="varchar" MaxLength="50" />
+          <Property Name="ProductDescription" Type="varchar" MaxLength="255" />
+          <Property Name="ProductQuantity" Type="int" />
+          <Property Name="ProductPrice" Type="decimal" Precision="10" Scale="2" />
+          <Property Name="ProductDate" Type="varchar" MaxLength="100" />
+          <Property Name="FarmerId" Type="int" />
+        </EntityType>
+        <EntityType Name="Userstbl">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Username" Type="varchar" MaxLength="50" />
+          <Property Name="Email" Type="varchar" MaxLength="255" />
+          <Property Name="Passcode" Type="varchar" MaxLength="20" />
+          <Property Name="Roles" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <Association Name="FK_Product_Farmer">
+          <End Role="Farmer" Type="Self.Farmer" Multiplicity="0..1" />
+          <End Role="Product" Type="Self.Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Farmer">
+              <PropertyRef Name="FarmerId" />
+            </Principal>
+            <Dependent Role="Product">
+              <PropertyRef Name="FarmerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Task2ProgModelStoreContainer">
+          <EntitySet Name="Farmer" EntityType="Self.Farmer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Product" EntityType="Self.Product" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Userstbl" EntityType="Self.Userstbl" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Product_Farmer" Association="Self.FK_Product_Farmer">
+            <End Role="Farmer" EntitySet="Farmer" />
+            <End Role="Product" EntitySet="Product" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Task2ProgModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Userstbl">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Username" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Passcode" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Roles" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityContainer Name="Task2ProgEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Userstbls" EntityType="Self.Userstbl" />
+          <EntitySet Name="Farmers" EntityType="Task2ProgModel.Farmer" />
+          <EntitySet Name="Products" EntityType="Task2ProgModel.Product" />
+          <AssociationSet Name="FK_Product_Farmer" Association="Task2ProgModel.FK_Product_Farmer">
+            <End Role="Farmer" EntitySet="Farmers" />
+            <End Role="Product" EntitySet="Products" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Farmer">
+          <Key>
+            <PropertyRef Name="FarmerId" />
+          </Key>
+          <Property Name="FarmerId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FarmerName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="FarmerAddress" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="FarmerPhone" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Products" Relationship="Task2ProgModel.FK_Product_Farmer" FromRole="Farmer" ToRole="Product" />
+        </EntityType>
+        <EntityType Name="Product">
+          <Key>
+            <PropertyRef Name="ProductId" />
+          </Key>
+          <Property Name="ProductId" Type="Int32" Nullable="false" />
+          <Property Name="ProductName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ProductDescription" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="ProductQuantity" Type="Int32" />
+          <Property Name="ProductPrice" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="ProductDate" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="FarmerId" Type="Int32" />
+          <NavigationProperty Name="Farmer" Relationship="Task2ProgModel.FK_Product_Farmer" FromRole="Product" ToRole="Farmer" />
+        </EntityType>
+        <Association Name="FK_Product_Farmer">
+          <End Type="Task2ProgModel.Farmer" Role="Farmer" Multiplicity="0..1" />
+          <End Type="Task2ProgModel.Product" Role="Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Farmer">
+              <PropertyRef Name="FarmerId" />
+            </Principal>
+            <Dependent Role="Product">
+              <PropertyRef Name="FarmerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Task2ProgModelStoreContainer" CdmEntityContainer="Task2ProgEntities">
+          <EntitySetMapping Name="Userstbls">
+            <EntityTypeMapping TypeName="Task2ProgModel.Userstbl">
+              <MappingFragment StoreEntitySet="Userstbl">
+                <ScalarProperty Name="Roles" ColumnName="Roles" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Passcode" ColumnName="Passcode" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Farmers">
+            <EntityTypeMapping TypeName="Task2ProgModel.Farmer">
+              <MappingFragment StoreEntitySet="Farmer">
+                <ScalarProperty Name="FarmerPhone" ColumnName="FarmerPhone" />
+                <ScalarProperty Name="FarmerAddress" ColumnName="FarmerAddress" />
+                <ScalarProperty Name="FarmerName" ColumnName="FarmerName" />
+                <ScalarProperty Name="FarmerId" ColumnName="FarmerId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Products">
+            <EntityTypeMapping TypeName="Task2ProgModel.Product">
+              <MappingFragment StoreEntitySet="Product">
+                <ScalarProperty Name="FarmerId" ColumnName="FarmerId" />
+                <ScalarProperty Name="ProductDate" ColumnName="ProductDate" />
+                <ScalarProperty Name="ProductPrice" ColumnName="ProductPrice" />
+                <ScalarProperty Name="ProductQuantity" ColumnName="ProductQuantity" />
+                <ScalarProperty Name="ProductDescription" ColumnName="ProductDescription" />
+                <ScalarProperty Name="ProductName" ColumnName="ProductName" />
+                <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

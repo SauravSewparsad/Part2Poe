@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="1ad7c8dc9b884cc88dc1363a2eeb1ad5" Name="Diagram1">
+        <EntityTypeShape EntityType="Task2ProgModel.Userstbl" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Task2ProgModel.Farmer" Width="1.5" PointX="3.375" PointY="1.25" />
+        <EntityTypeShape EntityType="Task2ProgModel.Product" Width="1.5" PointX="5.625" PointY="1" />
+        <AssociationConnector Association="Task2ProgModel.FK_Product_Farmer" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
